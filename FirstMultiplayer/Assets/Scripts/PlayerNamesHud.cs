@@ -25,7 +25,17 @@ public class PlayerNamesHud : MonoBehaviour
         photonView.RPC("AddPlayerStatsOnHud", RpcTarget.AllBuffered, nickName, stringColor, playerPhothonViewId);
     }
 
+    public string[] GetAllConnectedPlayersNames()
+    {
+        List<string> allNames = new List<string>();
 
+        for(int i = 0; i < playersStatsList.Count; i++)
+        {
+            allNames.Add(playersStatsList[i].GetPlayerName());
+        }
+
+        return allNames.ToArray();
+    }
     
     [PunRPC]
     public void AddPlayerStatsOnHud(string nickName, string color, int playerPhothonViewId)

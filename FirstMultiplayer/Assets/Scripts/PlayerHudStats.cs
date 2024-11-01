@@ -11,6 +11,7 @@ public class PlayerHudStats : MonoBehaviour
     [SerializeField] private Image healthBarImage;
     [SerializeField] private PhotonView photonView;
 
+    private string playerName = "";
     private int playerPhothonViewId = 0;
     private Color colorRef;
 
@@ -29,6 +30,11 @@ public class PlayerHudStats : MonoBehaviour
         return playerPhothonViewId;
     }
 
+    public string GetPlayerName()
+    {
+        return playerName;
+    }
+
     [PunRPC]
     public void ApplyStats(string nickName, string color, int playerPhothonViewId)
     {
@@ -37,7 +43,7 @@ public class PlayerHudStats : MonoBehaviour
 
        // Debug.Log("Arrived color " + color);
 
-
+        playerName = nickName;
         nickNameText.text = nickName;
         healthBarImage.color = colorRef;
 

@@ -16,6 +16,7 @@ public class InputController : MonoBehaviour
     public Action<Vector2> OnMousePositionUpdate;
     public Action OnJump;
     public Action OnWeaponChange;
+    public Action OnKillCountTabInputPressed;
 
     //public Action OnPauseEvent;
 
@@ -37,10 +38,16 @@ public class InputController : MonoBehaviour
         controls.Gameplay.Jump.performed += Jump;
         controls.Gameplay.WeaponChange.performed += WeaponChange_performed;
         controls.Gameplay.MousePosition.performed += MousePosition_performed;
+        controls.Gameplay.KillCountTab.performed += KillCountTab_performed;
 
         //Cancel
         controls.Gameplay.Move.canceled += Move;
 
+    }
+
+    private void KillCountTab_performed(InputAction.CallbackContext obj)
+    {
+        OnKillCountTabInputPressed?.Invoke();
     }
 
     private void MousePosition_performed(InputAction.CallbackContext context)

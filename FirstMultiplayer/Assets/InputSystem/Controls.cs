@@ -71,6 +71,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""KillCountTab"",
+                    ""type"": ""Button"",
+                    ""id"": ""e37e2ade-383b-48ae-a5c1-c6d0ead78907"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38e5a860-d059-4c11-af30-c3d66b3c0445"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KillCountTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +205,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Gameplay_MousePosition = m_Gameplay.FindAction("MousePosition", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_WeaponChange = m_Gameplay.FindAction("WeaponChange", throwIfNotFound: true);
+        m_Gameplay_KillCountTab = m_Gameplay.FindAction("KillCountTab", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +272,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_MousePosition;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_WeaponChange;
+    private readonly InputAction m_Gameplay_KillCountTab;
     public struct GameplayActions
     {
         private @Controls m_Wrapper;
@@ -260,6 +282,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @MousePosition => m_Wrapper.m_Gameplay_MousePosition;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @WeaponChange => m_Wrapper.m_Gameplay_WeaponChange;
+        public InputAction @KillCountTab => m_Wrapper.m_Gameplay_KillCountTab;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -284,6 +307,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @WeaponChange.started += instance.OnWeaponChange;
             @WeaponChange.performed += instance.OnWeaponChange;
             @WeaponChange.canceled += instance.OnWeaponChange;
+            @KillCountTab.started += instance.OnKillCountTab;
+            @KillCountTab.performed += instance.OnKillCountTab;
+            @KillCountTab.canceled += instance.OnKillCountTab;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -303,6 +329,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @WeaponChange.started -= instance.OnWeaponChange;
             @WeaponChange.performed -= instance.OnWeaponChange;
             @WeaponChange.canceled -= instance.OnWeaponChange;
+            @KillCountTab.started -= instance.OnKillCountTab;
+            @KillCountTab.performed -= instance.OnKillCountTab;
+            @KillCountTab.canceled -= instance.OnKillCountTab;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -327,5 +356,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMousePosition(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnWeaponChange(InputAction.CallbackContext context);
+        void OnKillCountTab(InputAction.CallbackContext context);
     }
 }

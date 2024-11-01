@@ -20,7 +20,7 @@ public class DisplayColor : MonoBehaviour
     {
         GetComponent<PhotonView>().RPC("SetColor", RpcTarget.AllBuffered, phothonViewId, colorId);
 
-        GetComponent<PhotonView>().RPC("NewPlayerHudStats", RpcTarget.AllBuffered, phothonViewId, colorId);
+        GetComponent<PhotonView>().RPC("NewPlayerHudStats", RpcTarget.All, phothonViewId, colorId);
     }
 
     [PunRPC]
