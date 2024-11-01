@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\NickNameText.cs" />
     <Compile Include="Assets\Scripts\PlayerHudStats.cs" />
     <Compile Include="Assets\Scripts\SpawnCharacters.cs" />
+    <Compile Include="Assets\Scripts\PlayerCheck.cs" />
     <Compile Include="Assets\Scripts\InputController.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChannelSelector.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
