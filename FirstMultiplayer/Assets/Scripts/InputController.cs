@@ -17,6 +17,8 @@ public class InputController : MonoBehaviour
     public Action OnJump;
     public Action OnWeaponChange;
     public Action OnKillCountTabInputPressed;
+    public Action OnExitLobbyPressed;
+    public Action<bool> OnShootInputUpdate;
 
     //public Action OnPauseEvent;
 
@@ -39,10 +41,32 @@ public class InputController : MonoBehaviour
         controls.Gameplay.WeaponChange.performed += WeaponChange_performed;
         controls.Gameplay.MousePosition.performed += MousePosition_performed;
         controls.Gameplay.KillCountTab.performed += KillCountTab_performed;
+        controls.Gameplay.ExitLobby.performed += ExitLobby_performed;
+        controls.Gameplay.Shoot.performed += Shoot;
 
         //Cancel
         controls.Gameplay.Move.canceled += Move;
+        controls.Gameplay.Shoot.canceled += Shoot;
 
+    }
+
+    private void Shoot(InputAction.CallbackContext obj)
+    {
+
+        if (obj.ReadValue<float>() > 0)
+            OnShootInputUpdate?.Invoke(true);
+        else
+            OnShootInputUpdate?.Invoke(false);
+    }
+
+    private void OnDestroy()
+    {
+        controls.Gameplay.Disable();
+    }
+
+    private void ExitLobby_performed(InputAction.CallbackContext obj)
+    {
+        OnExitLobbyPressed?.Invoke();
     }
 
     private void KillCountTab_performed(InputAction.CallbackContext obj)
@@ -67,8 +91,8 @@ public class InputController : MonoBehaviour
 
     private void Mouse(InputAction.CallbackContext context)
     {
-     
-       OnMouseDeltaUpdate?.Invoke(context.ReadValue<Vector2>());    
+
+        OnMouseDeltaUpdate?.Invoke(context.ReadValue<Vector2>());
     }
 
     private void Move(InputAction.CallbackContext context)

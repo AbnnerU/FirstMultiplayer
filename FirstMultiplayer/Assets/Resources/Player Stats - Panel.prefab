@@ -138,6 +138,7 @@ MonoBehaviour:
   nickNameText: {fileID: 7676415551384573971}
   healthBarImage: {fileID: 5266855679745584233}
   photonView: {fileID: 6265033063018705466}
+  healthValue: 100
 --- !u!114 &6265033063018705466
 MonoBehaviour:
   m_ObjectHideFlags: 0

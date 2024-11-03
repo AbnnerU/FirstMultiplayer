@@ -49,6 +49,13 @@ MonoBehaviour:
   - ApplyStats
   - NewPlayerHudStats
   - Count
+  - RemoveMe
+  - RemovePlayerStatsOnHud
+  - MuzzleFlash
+  - GunDamage
+  - DoDamageToPlayer
+  - HealthUpdate
+  - ChangeColliderActiveState
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

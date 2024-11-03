@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class AimLookAtRef : MonoBehaviour
 {
+    [SerializeField] private bool active = true;
     [SerializeField] private PhotonView photonView;
     private Transform aimTarget;
     private Transform _transform;
@@ -15,8 +16,15 @@ public class AimLookAtRef : MonoBehaviour
         _transform = transform;
     }
 
+    public void SetACtive(bool active)
+    {
+        this.active = active;
+    }
+
     void FixedUpdate()
     {
+        if (!active) return;
+
         if (photonView.IsMine == true)
             _transform.position = aimTarget.position;
         else

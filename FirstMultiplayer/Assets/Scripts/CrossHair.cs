@@ -22,6 +22,12 @@ public class CrossHair : MonoBehaviour
         //Cursor.visible = false;
     }
 
+    private void OnDestroy()
+    {
+        if (inputController)
+            inputController.OnMousePositionUpdate -= MousePositionUpdate;
+    }
+
     private void MousePositionUpdate(Vector2 vector)
     {
         //screenPosition = new Vector2(1920/2, 1080/2);

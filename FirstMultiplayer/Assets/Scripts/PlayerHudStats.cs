@@ -10,9 +10,12 @@ public class PlayerHudStats : MonoBehaviour
     [SerializeField] private TMP_Text nickNameText;
     [SerializeField] private Image healthBarImage;
     [SerializeField] private PhotonView photonView;
+    [Range(0,100)]
+    [SerializeField] private float healthValue=100;
 
     private string playerName = "";
     private int playerPhothonViewId = 0;
+    private bool isAlive = true;
     private Color colorRef;
 
     private void Awake()
@@ -33,6 +36,44 @@ public class PlayerHudStats : MonoBehaviour
     public string GetPlayerName()
     {
         return playerName;
+    }
+
+    public void UpdateBar(int hittedViewId, float damage)
+    {
+        photonView.RPC("HealthUpdate", RpcTarget.AllBuffered, hittedViewId, damage);
+    }
+
+    [PunRPC]
+    public void HealthUpdate(int hittedViewId, float damage)
+    {
+        if(hittedViewId == this.playerPhothonViewId)
+        {
+            if (!isAlive) return;
+
+            this.healthValue -= damage;
+
+            float percentage = this.healthValue / 100;
+
+            this.healthBarImage.fillAmount = percentage;
+
+            GameObject[] allPlayer = GameObject.FindGameObjectsWithTag("Player");
+
+            for(int i = 0; i < allPlayer.Length; i++)
+            {
+                if (allPlayer[i].GetComponent<PhotonView>().ViewID == hittedViewId)
+                {
+                    allPlayer[i].GetComponent<HealthHandler>().DoDamage((int)this.healthValue, hittedViewId);
+
+                    if(this.healthValue <= 0)
+                    {
+                        this.healthValue = 0;
+                        this.isAlive = false;
+                    }
+
+                    return;
+                }
+            }
+        }
     }
 
     [PunRPC]

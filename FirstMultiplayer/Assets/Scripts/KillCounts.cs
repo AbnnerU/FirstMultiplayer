@@ -30,6 +30,14 @@ public class KillCounts : MonoBehaviour
         killCountPanel.SetActive(false);
     }
 
+    private void OnDestroy()
+    {
+        if (inputController)
+        {
+            inputController.OnKillCountTabInputPressed -= OnKillCountTabInputPressed;
+        }
+    }
+
     private void OnKillCountTabInputPressed()
     {
         if (tabOn)

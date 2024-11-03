@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class AnimationManager : MonoBehaviour
 {
+    [SerializeField] private bool active = true;
     [SerializeField] private Animator anim;
     private InputController inputController;
     // Start is called before the first frame update
@@ -16,6 +17,11 @@ public class AnimationManager : MonoBehaviour
         {
             inputController.OnMoveInputUpdate += MoveInputUpdate;
         }
+    }
+
+    public void SetActive(bool active)
+    {
+        this.active = active;
     }
 
     public void Disable()
@@ -36,8 +42,13 @@ public class AnimationManager : MonoBehaviour
 
     private void MoveInputUpdate(Vector2 vector)
     {
+        if (!active) return;
         anim.SetFloat("BlendX", vector.x);
         anim.SetFloat("BlendY", vector.y);
-      
+    }
+
+    public void SetDeadAnimation(bool isDead)
+    {
+        anim.SetBool("Dead", isDead);
     }
 }
