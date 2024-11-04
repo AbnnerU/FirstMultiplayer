@@ -56,6 +56,10 @@ MonoBehaviour:
   - DoDamageToPlayer
   - HealthUpdate
   - ChangeColliderActiveState
+  - DisableKillMessage
+  - KillMessage
+  - ShowKillMessage
+  - KillMessageRequest
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -39,4 +39,17 @@ public class HealthHandler : MonoBehaviour
             animationManager.SetDeadAnimation(true);
         }
     }
+
+    public void ShowKillMessage(int hittedViewId, int shooterViewId)
+    {
+        photonView.RPC("KillMessageRequest", RpcTarget.All, hittedViewId, shooterViewId);
+        
+    }
+
+    [PunRPC]
+    void KillMessageRequest(int hittedViewId, int shooterViewId)
+    {
+        Debug.Log(photonView.ViewID);
+        FindFirstObjectByType<KillCounts>().ShowKillMessage(hittedViewId, shooterViewId);
+    }
 }

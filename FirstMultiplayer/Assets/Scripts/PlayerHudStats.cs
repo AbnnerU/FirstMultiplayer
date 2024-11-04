@@ -10,6 +10,7 @@ public class PlayerHudStats : MonoBehaviour
     [SerializeField] private TMP_Text nickNameText;
     [SerializeField] private Image healthBarImage;
     [SerializeField] private PhotonView photonView;
+    [SerializeField] private KillCounts killCounts;
     [Range(0,100)]
     [SerializeField] private float healthValue=100;
 
@@ -20,6 +21,7 @@ public class PlayerHudStats : MonoBehaviour
 
     private void Awake()
     {
+        killCounts = FindFirstObjectByType<KillCounts>();
         photonView = GetComponent<PhotonView>();
     }
 
@@ -38,13 +40,13 @@ public class PlayerHudStats : MonoBehaviour
         return playerName;
     }
 
-    public void UpdateBar(int hittedViewId, float damage)
+    public void UpdateBar(int hittedViewId, int shooterViewId, float damage)
     {
-        photonView.RPC("HealthUpdate", RpcTarget.AllBuffered, hittedViewId, damage);
+        photonView.RPC("HealthUpdate", RpcTarget.AllBuffered, hittedViewId, shooterViewId, damage);
     }
 
     [PunRPC]
-    public void HealthUpdate(int hittedViewId, float damage)
+    public void HealthUpdate(int hittedViewId, int shooterViewId, float damage)
     {
         if(hittedViewId == this.playerPhothonViewId)
         {
@@ -63,11 +65,12 @@ public class PlayerHudStats : MonoBehaviour
                 if (allPlayer[i].GetComponent<PhotonView>().ViewID == hittedViewId)
                 {
                     allPlayer[i].GetComponent<HealthHandler>().DoDamage((int)this.healthValue, hittedViewId);
-
-                    if(this.healthValue <= 0)
+                   
+                    if (this.healthValue <= 0)
                     {
+                        allPlayer[i].GetComponent<HealthHandler>().ShowKillMessage(hittedViewId, shooterViewId);
                         this.healthValue = 0;
-                        this.isAlive = false;
+                        this.isAlive = false;                    
                     }
 
                     return;
@@ -91,4 +94,6 @@ public class PlayerHudStats : MonoBehaviour
         this.playerPhothonViewId = playerPhothonViewId;
         this.colorRef = colorRef;
     }
+
+    
 }

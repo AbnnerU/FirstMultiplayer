@@ -131,7 +131,7 @@ public class PlayerNamesHud : MonoBehaviourPunCallbacks
             if (playersStatsList[i].GetPlayerViewId() == hittedViewId)
             {
                 Debug.Log("(" + shooterViewId + ") hitted (" + hittedViewId + "). Damage: "+damage);
-                playersStatsList[i].UpdateBar(hittedViewId, damage);
+                playersStatsList[i].UpdateBar(hittedViewId, shooterViewId, damage);
                 return;
             }
         }
