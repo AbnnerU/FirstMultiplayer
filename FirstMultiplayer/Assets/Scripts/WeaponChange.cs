@@ -84,12 +84,15 @@ public class WeaponChange : MonoBehaviour
             GetComponent<AnimationManager>().enabled = false;
         }
 
-        GameObject haveWeapon = GameObject.FindGameObjectWithTag("WeaponPickup");
-
-        if (haveWeapon == null)
+        if (PhotonNetwork.IsMasterClient == true)
         {
-            testForWeapons = FindFirstObjectByType<SpawnCharacters>();
-            testForWeapons.SpawnWeaponsStart();
+            GameObject haveWeapon = GameObject.FindGameObjectWithTag("WeaponPickup");
+          
+            if (haveWeapon == null)
+            {
+                testForWeapons = FindFirstObjectByType<SpawnCharacters>();
+                testForWeapons.SpawnWeaponsStart();
+            }
         }
     }
 

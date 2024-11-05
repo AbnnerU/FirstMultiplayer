@@ -17,12 +17,24 @@ public class SpawnCharacters : MonoBehaviour
     {
         if (PhotonNetwork.IsConnected)
         {
-            PhotonNetwork.Instantiate(character.name, 
-                spawnPoint[PhotonNetwork.CurrentRoom.PlayerCount - 1].position, 
-                spawnPoint[PhotonNetwork.CurrentRoom.PlayerCount - 1].rotation);
+           StartCoroutine(SpawnPlayer());
         }
     }
 
+    IEnumerator SpawnPlayer()
+    {
+        yield return new WaitUntil(PhotonNetworkIsConnectedAndReady);
+        PhotonNetwork.Instantiate(character.name,
+                spawnPoint[PhotonNetwork.CurrentRoom.PlayerCount - 1].position,
+                spawnPoint[PhotonNetwork.CurrentRoom.PlayerCount - 1].rotation);
+        yield break;
+    }
+
+    private bool PhotonNetworkIsConnectedAndReady()
+
+    {
+        return PhotonNetwork.IsConnectedAndReady;
+    }
 
     public void SpawnWeaponsStart()
     {

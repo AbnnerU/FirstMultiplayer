@@ -140,6 +140,9 @@ MonoBehaviour:
   photonView: {fileID: 6265033063018705466}
   killCounts: {fileID: 0}
   healthValue: 100
+  killMessageContainer: {fileID: 0}
+  killerNameText: {fileID: 0}
+  victimNameText: {fileID: 0}
 --- !u!114 &6265033063018705466
 MonoBehaviour:
   m_ObjectHideFlags: 0
